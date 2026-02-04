@@ -1,0 +1,21 @@
+# --- IntelliJ / IDE ---
+.idea/
+*.iml
+out/
+gen/
+
+# --- Backend (Maven) ---
+target/
+*.class
+.mvn/
+mvnw
+mvnw.cmd
+
+# --- Frontend (Node/React) ---
+web/node_modules/
+web/dist/
+.eslintcache
+
+# --- System / OS ---
+.DS_Store
+Thumbs.db
