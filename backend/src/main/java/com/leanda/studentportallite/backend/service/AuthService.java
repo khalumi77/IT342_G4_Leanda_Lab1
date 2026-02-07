@@ -1,7 +1,9 @@
 package com.leanda.studentportallite.backend.service;
 
+import com.leanda.studentportallite.backend.dto.LoginResponse;
 import com.leanda.studentportallite.backend.entity.User;
 import com.leanda.studentportallite.backend.repository.UserRepository;
+import com.leanda.studentportallite.backend.security.JwtUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +13,49 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository,
+                       BCryptPasswordEncoder passwordEncoder,
+                       JwtUtil jwtUtil) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
-    // Handles the "Save(user)" step in your Sequence Diagram
+    // Register new user
     public User register(User user) {
-        // Hashing the password as per security best practices
+        // Check if email already exists
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        // Hash the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    // Handles "findByEmail()" and credential validation from your Activity Diagram
-    public Optional<User> login(String email, String password) {
+    // Login and return JWT token with user data
+    public Optional<LoginResponse> login(String email, String password) {
         return userRepository.findByEmail(email)
-                .filter(user -> passwordEncoder.matches(password, user.getPassword()));
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
+                .map(user -> {
+                    String token = jwtUtil.generateToken(user.getEmail(), user.getFullName());
+                    return new LoginResponse(
+                            token,
+                            user.getEmail(),
+                            user.getFullName(),
+                            user.getStudentId(),
+                            user.getCourse(),
+                            user.getYear()
+                    );
+                });
+    }
+
+    // Logout (for future implementation with token blacklist)
+    public void logout(String token) {
+        // TODO: Implement token blacklisting if needed
+        // For now, logout is handled client-side by removing the token
     }
 }
