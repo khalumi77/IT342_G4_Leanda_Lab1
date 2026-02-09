@@ -1,22 +1,41 @@
-import axios from 'axios';
+import api from './api';
 
-const API_URL = "http://localhost:8080/api/auth/";
-
-export const register = (userData) => {
-    return axios.post(API_URL + "register", userData);
+// Login
+export const login = async (email, password) => {
+    const response = await api.post('/auth/login', { email, password });
+    return response.data;
 };
 
-export const login = (credentials) => {
-    return axios.post(API_URL + "login", credentials)
-        .then(response => {
-            if (response.data.token) {
-                // Store JWT in localStorage as per your Sequence Diagram flow
-                localStorage.setItem("user", JSON.stringify(response.data));
-            }
-            return response.data;
-        });
+// Register
+export const register = async (userData) => {
+    const response = await api.post('/auth/register', userData);
+    return response.data;
 };
 
-export const logout = () => {
-    localStorage.removeItem("user");
+// Logout
+export const logout = async () => {
+    try {
+        await api.post('/auth/logout');
+    } catch (error) {
+        // Even if server logout fails, we still clear local storage
+        console.error('Logout error:', error);
+    }
+};
+
+// Get user profile
+export const getProfile = async () => {
+    const response = await api.get('/user/profile');
+    return response.data;
+};
+
+// Get dashboard data
+export const getDashboard = async () => {
+    const response = await api.get('/user/dashboard');
+    return response.data;
+};
+
+// Update profile
+export const updateProfile = async (updates) => {
+    const response = await api.put('/user/profile', updates);
+    return response.data;
 };
