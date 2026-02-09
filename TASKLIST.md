@@ -6,14 +6,14 @@ DONE:
 
 -Mysql database and entity tables successfully created
 
+-Frontend UI
+
 IN PROGRESS:
 
--Frontend setup
-
--Missing files from class diagram
+-Frontend and database connectivity
 
 TODO:
 
--Completed backend with security
+-Testing backend security
 
--Frontend code and UI
+-Completed Frontend code and UI
