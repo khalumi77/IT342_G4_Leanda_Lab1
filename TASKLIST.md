@@ -8,9 +8,11 @@ DONE:
 
 -Frontend UI
 
+-Frontend and database connectivity
+
 IN PROGRESS:
 
--Frontend and database connectivity
+-Frontend UI improvement
 
 TODO:
 

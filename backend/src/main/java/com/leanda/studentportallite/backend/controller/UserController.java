@@ -99,7 +99,12 @@ public class UserController {
                 user.setCourse((String) updates.get("course"));
             }
             if (updates.containsKey("year")) {
-                user.setYear((Integer) updates.get("year"));
+                Object yearValue = updates.get("year");
+                if (yearValue instanceof Number) {
+                    user.setYear(((Number) yearValue).intValue());
+                } else if (yearValue instanceof String) {
+                    user.setYear(Integer.parseInt((String) yearValue));
+                }
             }
 
             User updatedUser = userRepository.save(user);
@@ -107,11 +112,14 @@ public class UserController {
             return ResponseEntity.ok(Map.of(
                     "message", "Profile updated successfully",
                     "user", Map.of(
+                            "id", updatedUser.getId(),
                             "fullName", updatedUser.getFullName(),
                             "email", updatedUser.getEmail(),
                             "studentId", updatedUser.getStudentId(),
                             "course", updatedUser.getCourse(),
-                            "year", updatedUser.getYear()
+                            "year", updatedUser.getYear(),
+                            "createdAt", updatedUser.getCreatedAt(),
+                            "updatedAt", updatedUser.getUpdatedAt()
                     )
             ));
         } catch (Exception e) {

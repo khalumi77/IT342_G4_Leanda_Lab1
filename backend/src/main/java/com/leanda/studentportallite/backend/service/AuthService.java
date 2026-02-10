@@ -31,9 +31,32 @@ public class AuthService {
             throw new RuntimeException("Email already exists");
         }
 
+        // Validate password requirements
+        String validationError = validatePassword(user.getPassword());
+        if (validationError != null) {
+            throw new RuntimeException(validationError);
+        }
+
         // Hash the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    // Validate password meets requirements
+    private String validatePassword(String password) {
+        if (password == null || password.length() < 6) {
+            return "Password must be at least 6 characters";
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            return "Password must contain at least 1 uppercase letter";
+        }
+        if (!password.matches(".*[a-z].*")) {
+            return "Password must contain at least 1 lowercase letter";
+        }
+        if (!password.matches(".*[0-9].*")) {
+            return "Password must contain at least 1 number";
+        }
+        return null;
     }
 
     // Login and return JWT token with user data

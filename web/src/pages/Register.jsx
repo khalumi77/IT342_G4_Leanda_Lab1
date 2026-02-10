@@ -19,31 +19,50 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value,
+            // Convert year to a number — the backend User entity expects int, not string
+            [name]: name === 'year' ? parseInt(value, 10) : value,
         });
+    };
+
+    const validatePassword = (password) => {
+        if (password.length < 6) {
+            return 'Password must be at least 6 characters';
+        }
+        if (!/[A-Z]/.test(password)) {
+            return 'Password must contain at least 1 uppercase letter';
+        }
+        if (!/[a-z]/.test(password)) {
+            return 'Password must contain at least 1 lowercase letter';
+        }
+        if (!/[0-9]/.test(password)) {
+            return 'Password must contain at least 1 number';
+        }
+        return null;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
-        // Validation
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             return;
         }
 
-        if (formData.password.length < 6) {
-            setError('Password must be at least 6 characters');
+        const passwordError = validatePassword(formData.password);
+        if (passwordError) {
+            setError(passwordError);
             return;
         }
 
         setLoading(true);
 
-        // Remove confirmPassword before sending
+        // Strip confirmPassword — backend doesn't have this field
         const { confirmPassword, ...userData } = formData;
+
         const result = await register(userData);
 
         if (result.success) {
@@ -99,8 +118,23 @@ const Register = () => {
                             onChange={handleChange}
                             required
                             style={styles.input}
-                            placeholder="Enter password (min 6 characters)"
+                            placeholder="Enter password"
                         />
+                        <div style={styles.passwordRequirements}>
+                            <p style={styles.requirementLabel}>Password must contain:</p>
+                            <div style={{...styles.requirement, color: formData.password.length >= 6 ? '#27ae60' : '#95a5a6'}}>
+                                ✓ At least 6 characters
+                            </div>
+                            <div style={{...styles.requirement, color: /[A-Z]/.test(formData.password) ? '#27ae60' : '#95a5a6'}}>
+                                ✓ At least 1 uppercase letter (A-Z)
+                            </div>
+                            <div style={{...styles.requirement, color: /[a-z]/.test(formData.password) ? '#27ae60' : '#95a5a6'}}>
+                                ✓ At least 1 lowercase letter (a-z)
+                            </div>
+                            <div style={{...styles.requirement, color: /[0-9]/.test(formData.password) ? '#27ae60' : '#95a5a6'}}>
+                                ✓ At least 1 number (0-9)
+                            </div>
+                        </div>
                     </div>
 
                     <div style={styles.formGroup}>
@@ -243,6 +277,23 @@ const styles = {
     link: {
         color: '#3498db',
         textDecoration: 'none',
+    },
+    passwordRequirements: {
+        backgroundColor: '#f8f9fa',
+        padding: '0.75rem',
+        borderRadius: '4px',
+        marginTop: '0.5rem',
+        fontSize: '0.85rem',
+    },
+    requirementLabel: {
+        margin: '0 0 0.5rem 0',
+        fontWeight: 'bold',
+        color: '#2c3e50',
+        fontSize: '0.85rem',
+    },
+    requirement: {
+        margin: '0.25rem 0',
+        fontSize: '0.8rem',
     },
 };
 
