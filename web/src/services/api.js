@@ -1,14 +1,15 @@
 import axios from 'axios';
 
-// Create axios instance
+// Use relative URL so Vite's proxy handles it:
+// /api → http://localhost:8080/api (defined in vite.config.js)
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: '/api',
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-// Request interceptor to add token to headers
+// Request interceptor: automatically attach JWT token to every request
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
@@ -22,12 +23,11 @@ api.interceptors.request.use(
     }
 );
 
-// Response interceptor to handle errors
+// Response interceptor: if token is expired/invalid (401), log user out
 api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            // Token expired or invalid
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             window.location.href = '/login';

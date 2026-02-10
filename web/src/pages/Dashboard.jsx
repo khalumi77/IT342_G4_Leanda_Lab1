@@ -90,16 +90,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Quick Actions */}
-                <div style={styles.card}>
-                    <h3 style={styles.cardTitle}>⚡ Quick Actions</h3>
-                    <div style={styles.actionButtons}>
-                        <button style={styles.actionButton}>View Courses</button>
-                        <button style={styles.actionButton}>View Grades</button>
-                        <button style={styles.actionButton}>Submit Assignment</button>
-                        <button style={styles.actionButton}>View Schedule</button>
-                    </div>
-                </div>
 
                 {/* Recent Activity */}
                 <div style={styles.card}>
