@@ -7,10 +7,7 @@ const Register = () => {
         fullName: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        studentId: '',
-        course: '',
-        year: 1,
+        confirmPassword: ''
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -22,8 +19,7 @@ const Register = () => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            // Convert year to a number — the backend User entity expects int, not string
-            [name]: name === 'year' ? parseInt(value, 10) : value,
+            [name]: value,
         });
     };
 
@@ -78,7 +74,7 @@ const Register = () => {
     return (
         <div style={styles.container}>
             <div style={styles.formContainer}>
-                <h2 style={styles.title}>Register for StudentPortal Lite</h2>
+                <h2 style={styles.title}>Register for Mini App</h2>
 
                 {error && <div style={styles.error}>{error}</div>}
 
@@ -150,45 +146,7 @@ const Register = () => {
                         />
                     </div>
 
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Student ID</label>
-                        <input
-                            type="text"
-                            name="studentId"
-                            value={formData.studentId}
-                            onChange={handleChange}
-                            style={styles.input}
-                            placeholder="Enter your student ID (optional)"
-                        />
-                    </div>
-
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Course</label>
-                        <input
-                            type="text"
-                            name="course"
-                            value={formData.course}
-                            onChange={handleChange}
-                            style={styles.input}
-                            placeholder="Enter your course (optional)"
-                        />
-                    </div>
-
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Year</label>
-                        <select
-                            name="year"
-                            value={formData.year}
-                            onChange={handleChange}
-                            style={styles.input}
-                        >
-                            <option value={1}>1st Year</option>
-                            <option value={2}>2nd Year</option>
-                            <option value={3}>3rd Year</option>
-                            <option value={4}>4th Year</option>
-                            <option value={5}>5th Year</option>
-                        </select>
-                    </div>
+                    {/* Only fullName, email, password are required for Mini App */}
 
                     <button
                         type="submit"

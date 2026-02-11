@@ -8,25 +8,12 @@ const Home = () => {
     return (
         <div style={styles.container}>
             <div style={styles.hero}>
-                <h1 style={styles.title}>Welcome to StudentPortal Lite</h1>
+                <h1 style={styles.title}>Welcome to the Mini App</h1>
                 <p style={styles.subtitle}>
-                    Your simplified student management system
+                    Register now
                 </p>
 
-                <div style={styles.features}>
-                    <div style={styles.feature}>
-                        <h3>📚 Easy to Use</h3>
-                        <p>Simple and intuitive interface for students</p>
-                    </div>
-                    <div style={styles.feature}>
-                        <h3>🔒 Secure</h3>
-                        <p>Your data is protected with JWT authentication</p>
-                    </div>
-                    <div style={styles.feature}>
-                        <h3>📱 Responsive</h3>
-                        <p>Access from any device, anywhere</p>
-                    </div>
-                </div>
+                
 
                 <div style={styles.cta}>
                     {isAuthenticated() ? (

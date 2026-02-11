@@ -1,13 +1,14 @@
 package com.leanda.studentportallite.backend.service;
 
+import java.util.Optional;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.leanda.studentportallite.backend.dto.LoginResponse;
 import com.leanda.studentportallite.backend.entity.User;
 import com.leanda.studentportallite.backend.repository.UserRepository;
 import com.leanda.studentportallite.backend.security.JwtUtil;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -65,14 +66,11 @@ public class AuthService {
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> {
                     String token = jwtUtil.generateToken(user.getEmail(), user.getFullName());
-                    return new LoginResponse(
+                        return new LoginResponse(
                             token,
                             user.getEmail(),
-                            user.getFullName(),
-                            user.getStudentId(),
-                            user.getCourse(),
-                            user.getYear()
-                    );
+                            user.getFullName()
+                        );
                 });
     }
 

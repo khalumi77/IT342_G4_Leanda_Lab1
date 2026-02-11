@@ -39,7 +39,7 @@ const Login = () => {
     return (
         <div style={styles.container}>
             <div style={styles.formContainer}>
-                <h2 style={styles.title}>Login to StudentPortal Lite</h2>
+                <h2 style={styles.title}>Login to Mini App</h2>
 
                 {error && <div style={styles.error}>{error}</div>}
 

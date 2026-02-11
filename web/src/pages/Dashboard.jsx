@@ -44,61 +44,7 @@ const Dashboard = () => {
         <div style={styles.container}>
             <div style={styles.header}>
                 <h1>Welcome, {user?.fullName}! 👋</h1>
-                <p style={styles.subtitle}>Here's your student dashboard</p>
-            </div>
-
-            <div style={styles.grid}>
-                {/* Student Info Card */}
-                <div style={styles.card}>
-                    <h3 style={styles.cardTitle}>📚 Student Information</h3>
-                    <div style={styles.infoGrid}>
-                        <div style={styles.infoItem}>
-                            <span style={styles.infoLabel}>Course:</span>
-                            <span style={styles.infoValue}>{user?.course || 'Not set'}</span>
-                        </div>
-                        <div style={styles.infoItem}>
-                            <span style={styles.infoLabel}>Year:</span>
-                            <span style={styles.infoValue}>{user?.year ? `${user.year}${getOrdinalSuffix(user.year)} Year` : 'Not set'}</span>
-                        </div>
-                        <div style={styles.infoItem}>
-                            <span style={styles.infoLabel}>Student ID:</span>
-                            <span style={styles.infoValue}>{user?.studentId || 'Not set'}</span>
-                        </div>
-                        <div style={styles.infoItem}>
-                            <span style={styles.infoLabel}>Email:</span>
-                            <span style={styles.infoValue}>{user?.email}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Stats Cards */}
-                <div style={styles.card}>
-                    <h3 style={styles.cardTitle}>📊 Statistics</h3>
-                    <div style={styles.statsGrid}>
-                        <div style={styles.statCard}>
-                            <div style={styles.statNumber}>{dashboardData?.stats?.totalCourses || 0}</div>
-                            <div style={styles.statLabel}>Total Courses</div>
-                        </div>
-                        <div style={styles.statCard}>
-                            <div style={styles.statNumber}>{dashboardData?.stats?.completedAssignments || 0}</div>
-                            <div style={styles.statLabel}>Completed Assignments</div>
-                        </div>
-                        <div style={styles.statCard}>
-                            <div style={styles.statNumber}>{dashboardData?.stats?.upcomingEvents || 0}</div>
-                            <div style={styles.statLabel}>Upcoming Events</div>
-                        </div>
-                    </div>
-                </div>
-
-
-                {/* Recent Activity */}
-                <div style={styles.card}>
-                    <h3 style={styles.cardTitle}>📝 Recent Activity</h3>
-                    <div style={styles.activityList}>
-                        <p style={styles.activityItem}>✓ Logged in successfully</p>
-                        <p style={styles.activityItem}>No recent activities yet</p>
-                    </div>
-                </div>
+                <p style={styles.subtitle}>Welcome to your dashboard</p>
             </div>
         </div>
     );

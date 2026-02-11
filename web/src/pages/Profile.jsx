@@ -3,14 +3,11 @@ import { useAuth } from '../context/AuthContext';
 import { getProfile, updateProfile } from '../services/authService';
 
 const Profile = () => {
-  const { user: authUser } = useAuth();
+  const { user: authUser, updateUser } = useAuth();
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: '',
-    studentId: '',
-    course: '',
-    year: 1,
+    fullName: ''
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -25,10 +22,7 @@ const Profile = () => {
       const data = await getProfile();
       setProfile(data);
       setFormData({
-        fullName: data.fullName || '',
-        studentId: data.studentId || '',
-        course: data.course || '',
-        year: data.year || 1,
+        fullName: data.fullName || ''
       });
     } catch (err) {
       setError('Failed to load profile');
@@ -56,13 +50,14 @@ const Profile = () => {
       setSuccess('Profile updated successfully!');
       setProfile(result.user);
       setEditing(false);
-      
-      // Update localStorage with new user data
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      localStorage.setItem('user', JSON.stringify({
-        ...storedUser,
-        ...formData,
-      }));
+      // Update auth context and localStorage so UI updates immediately
+      try {
+        const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+        const updatedUser = result.user ? { ...storedUser, ...result.user } : { ...storedUser, ...formData };
+        updateUser(updatedUser);
+      } catch (err) {
+        console.error('Failed to update auth context after profile save', err);
+      }
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to update profile');
     } finally {
@@ -73,9 +68,6 @@ const Profile = () => {
   const handleCancel = () => {
     setFormData({
       fullName: profile.fullName || '',
-      studentId: profile.studentId || '',
-      course: profile.course || '',
-      year: profile.year || 1,
     });
     setEditing(false);
     setError('');
@@ -121,30 +113,7 @@ const Profile = () => {
               <p style={styles.value}>{profile?.email}</p>
             </div>
 
-            <div style={styles.infoGroup}>
-              <label style={styles.label}>Student ID</label>
-              <p style={styles.value}>{profile?.studentId || 'Not set'}</p>
-            </div>
-
-            <div style={styles.infoGroup}>
-              <label style={styles.label}>Course</label>
-              <p style={styles.value}>{profile?.course || 'Not set'}</p>
-            </div>
-
-            <div style={styles.infoGroup}>
-              <label style={styles.label}>Year</label>
-              <p style={styles.value}>{profile?.year ? `${profile.year}${getOrdinalSuffix(profile.year)} Year` : 'Not set'}</p>
-            </div>
-
-            <div style={styles.infoGroup}>
-              <label style={styles.label}>Member Since</label>
-              <p style={styles.value}>{new Date(profile?.createdAt).toLocaleDateString()}</p>
-            </div>
-
-            <div style={styles.infoGroup}>
-              <label style={styles.label}>Last Updated</label>
-              <p style={styles.value}>{new Date(profile?.updatedAt).toLocaleDateString()}</p>
-            </div>
+            {/* Only fullName and email are shown in Mini App */}
           </div>
         ) : (
           // Edit Mode
@@ -171,43 +140,7 @@ const Profile = () => {
               />
             </div>
 
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Student ID</label>
-              <input
-                type="text"
-                name="studentId"
-                value={formData.studentId}
-                onChange={handleChange}
-                style={styles.input}
-              />
-            </div>
-
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Course</label>
-              <input
-                type="text"
-                name="course"
-                value={formData.course}
-                onChange={handleChange}
-                style={styles.input}
-              />
-            </div>
-
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Year</label>
-              <select
-                name="year"
-                value={formData.year}
-                onChange={handleChange}
-                style={styles.input}
-              >
-                <option value={1}>1st Year</option>
-                <option value={2}>2nd Year</option>
-                <option value={3}>3rd Year</option>
-                <option value={4}>4th Year</option>
-                <option value={5}>5th Year</option>
-              </select>
-            </div>
+            {/* no additional fields */}
 
             <div style={styles.buttonGroup}>
               <button 
