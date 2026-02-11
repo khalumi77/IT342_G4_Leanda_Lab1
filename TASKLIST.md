@@ -12,10 +12,6 @@ DONE:
 
 IN PROGRESS:
 
--Frontend UI improvement
-
 TODO:
 
--Testing backend security
-
--Completed Frontend code and UI
+-Mobile version
