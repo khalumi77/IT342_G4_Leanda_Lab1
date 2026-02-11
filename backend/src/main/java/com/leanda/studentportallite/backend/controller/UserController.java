@@ -1,13 +1,19 @@
 package com.leanda.studentportallite.backend.controller;
 
-import com.leanda.studentportallite.backend.entity.User;
-import com.leanda.studentportallite.backend.repository.UserRepository;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import com.leanda.studentportallite.backend.entity.User;
+import com.leanda.studentportallite.backend.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/user")
@@ -33,12 +39,7 @@ public class UserController {
             return ResponseEntity.ok(Map.of(
                     "id", user.getId(),
                     "fullName", user.getFullName(),
-                    "email", user.getEmail(),
-                    "studentId", user.getStudentId() != null ? user.getStudentId() : "",
-                    "course", user.getCourse() != null ? user.getCourse() : "",
-                    "year", user.getYear(),
-                    "createdAt", user.getCreatedAt(),
-                    "updatedAt", user.getUpdatedAt()
+                    "email", user.getEmail()
             ));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of(
@@ -48,36 +49,29 @@ public class UserController {
     }
 
     // Dashboard endpoint (can be customized based on your needs)
-    @GetMapping("/dashboard")
-    public ResponseEntity<?> getDashboard(Authentication authentication) {
+        @GetMapping("/dashboard")
+        public ResponseEntity<?> getDashboard(Authentication authentication) {
         try {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String email = userDetails.getUsername();
 
             User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
             return ResponseEntity.ok(Map.of(
-                    "message", "Welcome to your dashboard",
-                    "user", Map.of(
-                            "fullName", user.getFullName(),
-                            "course", user.getCourse() != null ? user.getCourse() : "Not set",
-                            "year", user.getYear()
-                    ),
-                    "stats", Map.of(
-                            "totalCourses", 0,  // Placeholder - implement based on your requirements
-                            "completedAssignments", 0,
-                            "upcomingEvents", 0
-                    )
+                "message", "Welcome to your dashboard",
+                "user", Map.of(
+                    "fullName", user.getFullName()
+                )
             ));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Failed to fetch dashboard: " + e.getMessage()
+                "error", "Failed to fetch dashboard: " + e.getMessage()
             ));
         }
-    }
+        }
 
-    // Update profile endpoint
+    // Update profile endpoint (only fullName for now)
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@RequestBody Map<String, Object> updates,
                                            Authentication authentication) {
@@ -92,20 +86,6 @@ public class UserController {
             if (updates.containsKey("fullName")) {
                 user.setFullName((String) updates.get("fullName"));
             }
-            if (updates.containsKey("studentId")) {
-                user.setStudentId((String) updates.get("studentId"));
-            }
-            if (updates.containsKey("course")) {
-                user.setCourse((String) updates.get("course"));
-            }
-            if (updates.containsKey("year")) {
-                Object yearValue = updates.get("year");
-                if (yearValue instanceof Number) {
-                    user.setYear(((Number) yearValue).intValue());
-                } else if (yearValue instanceof String) {
-                    user.setYear(Integer.parseInt((String) yearValue));
-                }
-            }
 
             User updatedUser = userRepository.save(user);
 
@@ -114,12 +94,7 @@ public class UserController {
                     "user", Map.of(
                             "id", updatedUser.getId(),
                             "fullName", updatedUser.getFullName(),
-                            "email", updatedUser.getEmail(),
-                            "studentId", updatedUser.getStudentId(),
-                            "course", updatedUser.getCourse(),
-                            "year", updatedUser.getYear(),
-                            "createdAt", updatedUser.getCreatedAt(),
-                            "updatedAt", updatedUser.getUpdatedAt()
+                            "email", updatedUser.getEmail()
                     )
             ));
         } catch (Exception e) {

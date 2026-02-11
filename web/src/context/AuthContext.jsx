@@ -73,6 +73,16 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    // Update user in context and localStorage
+    const updateUser = (newUser) => {
+        setUser(newUser);
+        try {
+            localStorage.setItem('user', JSON.stringify(newUser));
+        } catch (err) {
+            console.error('Failed to update user in localStorage', err);
+        }
+    };
+
     // Check if user is authenticated
     const isAuthenticated = () => {
         return !!token;
@@ -81,6 +91,7 @@ export const AuthProvider = ({ children }) => {
     const value = {
         user,
         token,
+        updateUser,
         login,
         register,
         logout,

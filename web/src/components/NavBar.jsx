@@ -15,7 +15,7 @@ const Navbar = () => {
         <nav style={styles.nav}>
             <div style={styles.container}>
                 <Link to="/" style={styles.logo}>
-                    StudentPortal Lite
+                    Mini App
                 </Link>
 
                 <div style={styles.links}>
