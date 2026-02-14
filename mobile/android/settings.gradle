@@ -1,5 +1,0 @@
-rootProject.name = 'MiniApp'
-apply from: file("../node_modules/@react-native/gradle-plugin/scripts/autolinking.gradle")
-useAutolinking()
-include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
