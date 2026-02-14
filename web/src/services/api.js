@@ -23,11 +23,12 @@ api.interceptors.request.use(
     }
 );
 
-// Response interceptor: if token is expired/invalid (401), log user out
+// Response interceptor: if token is expired/invalid (401) on protected routes, log user out
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
+        // Only redirect to login on 401 for protected routes, not auth routes
+        if (error.response?.status === 401 && !error.config.url.includes('/auth/')) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             window.location.href = '/login';
