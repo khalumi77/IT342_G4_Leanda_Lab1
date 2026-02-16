@@ -1,4 +1,4 @@
-package com.leanda.studentportallite.backend.security;
+package com.leanda.miniapp.backend.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

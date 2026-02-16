@@ -1,4 +1,4 @@
-package com.leanda.studentportallite.backend.controller;
+package com.leanda.miniapp.backend.controller;
 
 import java.util.Map;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leanda.studentportallite.backend.entity.User;
-import com.leanda.studentportallite.backend.repository.UserRepository;
+import com.leanda.miniapp.backend.entity.User;
+import com.leanda.miniapp.backend.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/user")

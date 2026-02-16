@@ -1,4 +1,4 @@
-package com.leanda.studentportallite.backend;
+package com.leanda.miniapp.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

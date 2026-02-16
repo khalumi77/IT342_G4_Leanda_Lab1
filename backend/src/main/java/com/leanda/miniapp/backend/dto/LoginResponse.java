@@ -1,4 +1,4 @@
-package com.leanda.studentportallite.backend.dto;
+package com.leanda.miniapp.backend.dto;
 
 public class LoginResponse {
     private String token;
