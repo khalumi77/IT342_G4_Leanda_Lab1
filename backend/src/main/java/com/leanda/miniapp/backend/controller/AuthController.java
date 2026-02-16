@@ -1,8 +1,8 @@
-package com.leanda.studentportallite.backend.controller;
+package com.leanda.miniapp.backend.controller;
 
-import com.leanda.studentportallite.backend.dto.LoginResponse;
-import com.leanda.studentportallite.backend.entity.User;
-import com.leanda.studentportallite.backend.service.AuthService;
+import com.leanda.miniapp.backend.dto.LoginResponse;
+import com.leanda.miniapp.backend.entity.User;
+import com.leanda.miniapp.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

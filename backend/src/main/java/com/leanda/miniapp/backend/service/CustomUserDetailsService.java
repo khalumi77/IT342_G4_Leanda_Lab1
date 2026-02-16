@@ -1,6 +1,6 @@
-package com.leanda.studentportallite.backend.service;
+package com.leanda.miniapp.backend.service;
 
-import com.leanda.studentportallite.backend.repository.UserRepository;
+import com.leanda.miniapp.backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

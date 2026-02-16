@@ -1,14 +1,14 @@
-package com.leanda.studentportallite.backend.service;
+package com.leanda.miniapp.backend.service;
 
 import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.leanda.studentportallite.backend.dto.LoginResponse;
-import com.leanda.studentportallite.backend.entity.User;
-import com.leanda.studentportallite.backend.repository.UserRepository;
-import com.leanda.studentportallite.backend.security.JwtUtil;
+import com.leanda.miniapp.backend.dto.LoginResponse;
+import com.leanda.miniapp.backend.entity.User;
+import com.leanda.miniapp.backend.repository.UserRepository;
+import com.leanda.miniapp.backend.security.JwtUtil;
 
 @Service
 public class AuthService {

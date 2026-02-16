@@ -1,4 +1,4 @@
-package com.leanda.studentportallite.backend.entity;
+package com.leanda.miniapp.backend.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

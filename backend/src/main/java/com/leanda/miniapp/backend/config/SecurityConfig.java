@@ -1,6 +1,6 @@
-package com.leanda.studentportallite.backend.config;
+package com.leanda.miniapp.backend.config;
 
-import com.leanda.studentportallite.backend.security.JwtAuthenticationFilter;
+import com.leanda.miniapp.backend.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

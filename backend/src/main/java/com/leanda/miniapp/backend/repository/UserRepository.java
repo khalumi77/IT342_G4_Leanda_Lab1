@@ -1,6 +1,6 @@
-package com.leanda.studentportallite.backend.repository;
+package com.leanda.miniapp.backend.repository;
 
-import com.leanda.studentportallite.backend.entity.User;
+import com.leanda.miniapp.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
