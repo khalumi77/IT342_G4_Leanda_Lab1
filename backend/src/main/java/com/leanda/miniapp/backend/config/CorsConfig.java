@@ -24,8 +24,8 @@ public class CorsConfig {
         // Allow all headers
         configuration.setAllowedHeaders(Arrays.asList("*"));
         
-        // Allow credentials
-        configuration.setAllowCredentials(true);
+        // Don't allow credentials with wildcard origins - use JWT in headers instead
+        configuration.setAllowCredentials(false);
         
         // Apply CORS to all endpoints
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

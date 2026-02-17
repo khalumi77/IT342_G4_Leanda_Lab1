@@ -11,8 +11,8 @@ object RetrofitClient {
     
     // IMPORTANT: Change this to your computer's IP address
     // For Android Emulator: use 10.0.2.2 (this maps to localhost on your computer)
-    // For Physical Device: use your computer's actual IP address (e.g., "192.168.1.100")
-    private const val BASE_URL = "http://192.168.1.8:8080/api/"
+    // For Physical Device: use your computer's actual IP address (e.g., "192.168.1.9")
+    private const val BASE_URL = "http://192.168.1.9:8080/api/"
     
     // Token holder
     var authToken: String? = null

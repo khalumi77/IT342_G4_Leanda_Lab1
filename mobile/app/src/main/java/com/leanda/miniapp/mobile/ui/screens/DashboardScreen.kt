@@ -87,31 +87,6 @@ fun DashboardScreen(
                                 )
                             }
                         }
-                        
-                        Spacer(modifier = Modifier.height(24.dp))
-                        
-                        // Quick actions
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = "Quick Actions",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    modifier = Modifier.padding(bottom = 12.dp)
-                                )
-                                
-                                Button(
-                                    onClick = onNavigateToProfile,
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    Icon(Icons.Default.Person, contentDescription = null)
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text("View Profile")
-                                }
-                            }
-                        }
                     }
                 }
                 is DashboardViewModel.DashboardState.Error -> {

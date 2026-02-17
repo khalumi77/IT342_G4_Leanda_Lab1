@@ -10,8 +10,9 @@ DONE:
 
 -Frontend and database connectivity
 
+-Mobile app
+
 IN PROGRESS:
+-Testing and code cleaning
 
 TODO:
-
--Mobile version

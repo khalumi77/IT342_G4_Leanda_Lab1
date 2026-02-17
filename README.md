@@ -68,7 +68,32 @@ npm run dev
 
 ## Quick start — Mobile
 
-TBA
+### Prerequisites
+- Android Studio (Android emulator or physical device)
+- Android SDK 24+ (minSdk)
+- WiFi network set to **private** (required for backend communication)
+
+### Setup
+
+1. Open the `mobile` folder in Android Studio.
+2. Configure the backend API URL in `app/src/main/java/com/leanda/miniapp/mobile/api/RetrofitClient.kt`:
+   - **For physical device**: Use your PC's IP address (e.g., `http://192.168.1.9:8080/api/`)
+   - **For Android emulator**: Use `http://10.0.2.2:8080/api/`
+
+3. Make sure your WiFi network is set to **private** mode (required for the app to communicate with the backend).
+
+4. Start the backend:
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+
+5. Build and run the app:
+   - Click **Run** in Android Studio, or
+   - Use the AVD Manager to start an emulator
+   - Select your target device and click **Run**
+
+6. The app will launch on your device/emulator at the login screen.
 ---
 
 ## Database schema (MySQL)
