@@ -26,6 +26,28 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    // Get current authenticated user endpoint (requires authentication)
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe(Authentication authentication) {
+        try {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String email = userDetails.getUsername();
+
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            return ResponseEntity.ok(Map.of(
+                    "id", user.getId(),
+                    "fullName", user.getFullName(),
+                    "email", user.getEmail()
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", "Failed to fetch user info: " + e.getMessage()
+            ));
+        }
+    }
+
     // View Profile endpoint
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(Authentication authentication) {
