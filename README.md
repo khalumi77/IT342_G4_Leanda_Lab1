@@ -16,7 +16,8 @@ The repo contains a Spring Boot backend and a React (Vite) frontend. The fronten
 
 ## Tech stack
 
-- Frontend: React + Vite
+- Frontend (Web): React + Vite
+- Frontend (Mobile): Kotlin
 - Backend: Spring Boot 
 - Database: MySQL 
 - Tools: Maven, npm
@@ -71,7 +72,6 @@ npm run dev
 ### Prerequisites
 - Android Studio (Android emulator or physical device)
 - Android SDK 24+ (minSdk)
-- WiFi network set to **private** (required for backend communication)
 
 ### Setup
 
@@ -80,13 +80,9 @@ npm run dev
    - **For physical device**: Use your PC's IP address (e.g., `http://192.168.1.9:8080/api/`)
    - **For Android emulator**: Use `http://10.0.2.2:8080/api/`
 
-3. Make sure your WiFi network is set to **private** mode (required for the app to communicate with the backend).
+3. Make sure your WiFi network is set to **private** mode when using a physical phone (required for the app to communicate with the backend).
 
-4. Start the backend:
-   ```bash
-   cd backend
-   mvn spring-boot:run
-   ```
+4. Start the backend
 
 5. Build and run the app:
    - Click **Run** in Android Studio, or
